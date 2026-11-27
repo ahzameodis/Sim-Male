@@ -99,6 +99,29 @@ per line in `data/agents.jsonl`, each with `lat`/`lon` inside its district.
 
 Verify after seeding — the printed marginals should match the table above.
 
+### Where the map places each voter
+
+The generator uses the six district labels in the electorate model. Every final, rounded coordinate must fall inside its assigned placement polygon. Sampling is proportional to mapped area within each district. It does not estimate how many people live in individual buildings.
+
+| District | Placement geometry |
+|---|---|
+| Henveiru, Galolhu, Machchangolhi, Maafannu | Maldives Bureau of Statistics ward polygons intersected with the Malé island outline. The Stats Map spells Henveiru “Henveyru”. |
+| Hulhumalé | HDC parcels with `landuse=Residential` and `status=Completed` in phases HM1 and HM2, intersected with the Hulhumalé island outline. Parcel status is a proxy for housing availability. |
+| Villimalé | The mapped island of Villingili in Malé City. This simulation treats it as one district. |
+
+**Demographic context.** Malé City Council's English homepage lists a population of 252,768, 46,251 households, 635 hectares and 18 constituencies. The figures appear without a reference year or a ward breakdown. The six model districts group the electorate geographically. The 18 Council constituencies are a different geography. Census 2022 Table H4 reports 35,859 residents in Hulhumalé Phase 1 and 29,855 in Phase 2. Both figures cover all residents. The existing voter weights are retained for this map revision.
+
+**Reproducibility.** The bundled `sim_male/placement.geojson` contains the six derived placement masks. The same seed retains the earlier sequence of voter profiles. Regenerate the population and export the map using the quick-start commands above. Existing population files require regeneration or explicit relocation before exporting to obtain the revised coordinates.
+
+**Sources and boundary refresh.**
+
+- [Malé City Council demographic summary](https://malecity.gov.mv/en) and [Census 2022 Table H4](https://census.gov.mv/2022/wp-content/uploads/2023/07/H4.pdf).
+- [Maldives Bureau of Statistics Stats Map](https://app.statisticsmaldives.gov.mv/gismaps/statsmap/) and its [ward layer](https://app.statisticsmaldives.gov.mv/gismaps/statsmap/layers/WardMaaleandFoahmulah_22.js).
+- [HDC GIS portal](https://gis.hdc.mv/) and its [Hulhumalé shapefile](https://gis.hdc.mv/assets/downloads/Hulhumale_Shapefile.zip).
+- [Government of Maldives administrative boundaries, OCHA / HDX, COD-AB v02](https://data.humdata.org/dataset/cod-ab-mdv), CC BY-IGO. Use the GeoJSON ZIP. Map outlines reflect the respective source editions.
+
+To rebuild the masks after downloading these inputs, install the additional build dependencies with `python -m pip install pyshp pyproj`, then run `python tools/build_boundaries.py WardMaaleandFoahmulah_22.js Hulhumale_Shapefile.zip mdv_admin_boundaries.geojson.zip`.
+
 ### 2. Personas (`persona.py`)
 The system prompt is two blocks: a big shared `CITY_CONTEXT` (marked for prompt
 caching so you pay for it ~once per poll instead of 10,000 times) followed by the
@@ -181,7 +204,7 @@ sim-male/
 ├─ sim_male/
 │  ├─ config.py           # models, paths, sample sizes, pricing
 │  ├─ demographics.py     # ⚠️ the distributions to replace with real census data
-│  ├─ map_data.py         # district centroids → lat/lon scatter
+│  ├─ map_data.py         # sample coordinates inside mapped polygons
 │  ├─ persona.py          # CITY_CONTEXT + per-agent system prompt (cached)
 │  ├─ seed.py             # generate population → agents.jsonl
 │  ├─ agent.py            # single agent + focus-group framework
