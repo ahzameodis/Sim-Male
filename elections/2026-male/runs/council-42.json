@@ -1,0 +1,210 @@
+{
+  "assignment_seed": 42,
+  "forecasts": [
+    {
+      "contest": "T1",
+      "method": "party-lean rule v1",
+      "seed": "42/T1",
+      "synthetic_electors": 736,
+      "turnout": 0.3138586956521739,
+      "shares": {
+        "6": 0.45614035087719296,
+        "7": 0.39473684210526316,
+        "8": 0.14912280701754385
+      }
+    },
+    {
+      "contest": "T2",
+      "method": "party-lean rule v1",
+      "seed": "42/T2",
+      "synthetic_electors": 521,
+      "turnout": 0.30134357005758156,
+      "shares": {
+        "6": 0.4025974025974026,
+        "7": 0.3961038961038961,
+        "8": 0.09740259740259741,
+        "9": 0.1038961038961039
+      }
+    },
+    {
+      "contest": "T3",
+      "method": "party-lean rule v1",
+      "seed": "42/T3",
+      "synthetic_electors": 502,
+      "turnout": 0.3286852589641434,
+      "shares": {
+        "6": 0.4444444444444444,
+        "7": 0.12962962962962962,
+        "8": 0.42592592592592593
+      }
+    },
+    {
+      "contest": "T4",
+      "method": "party-lean rule v1",
+      "seed": "42/T4",
+      "synthetic_electors": 442,
+      "turnout": 0.32805429864253394,
+      "shares": {
+        "6": 0.4225352112676056,
+        "7": 0.5774647887323944
+      }
+    },
+    {
+      "contest": "T5",
+      "method": "party-lean rule v1",
+      "seed": "42/T5",
+      "synthetic_electors": 567,
+      "turnout": 0.30158730158730157,
+      "shares": {
+        "6": 0.4723926380368098,
+        "7": 0.39263803680981596,
+        "8": 0.13496932515337423
+      }
+    },
+    {
+      "contest": "T6",
+      "method": "party-lean rule v1",
+      "seed": "42/T6",
+      "synthetic_electors": 665,
+      "turnout": 0.3067669172932331,
+      "shares": {
+        "6": 0.3604060913705584,
+        "7": 0.12690355329949238,
+        "8": 0.5126903553299492
+      }
+    },
+    {
+      "contest": "T7",
+      "method": "party-lean rule v1",
+      "seed": "42/T7",
+      "synthetic_electors": 528,
+      "turnout": 0.3181818181818182,
+      "shares": {
+        "6": 0.3878787878787879,
+        "7": 0.21212121212121213,
+        "8": 0.4
+      }
+    },
+    {
+      "contest": "T8",
+      "method": "party-lean rule v1",
+      "seed": "42/T8",
+      "synthetic_electors": 495,
+      "turnout": 0.31717171717171716,
+      "shares": {
+        "6": 0.4966887417218543,
+        "7": 0.5033112582781457
+      }
+    },
+    {
+      "contest": "T9",
+      "method": "party-lean rule v1",
+      "seed": "42/T9",
+      "synthetic_electors": 651,
+      "turnout": 0.29339477726574503,
+      "shares": {
+        "6": 0.4095744680851064,
+        "7": 0.1702127659574468,
+        "8": 0.42021276595744683
+      }
+    },
+    {
+      "contest": "T10",
+      "method": "party-lean rule v1",
+      "seed": "42/T10",
+      "synthetic_electors": 546,
+      "turnout": 0.2893772893772894,
+      "shares": {
+        "6": 0.3961038961038961,
+        "7": 0.33766233766233766,
+        "8": 0.17532467532467533,
+        "9": 0.09090909090909091
+      }
+    },
+    {
+      "contest": "T11",
+      "method": "party-lean rule v1",
+      "seed": "42/T11",
+      "synthetic_electors": 585,
+      "turnout": 0.3128205128205128,
+      "shares": {
+        "6": 0.11731843575418995,
+        "7": 0.4748603351955307,
+        "8": 0.40782122905027934
+      }
+    },
+    {
+      "contest": "T12",
+      "method": "party-lean rule v1",
+      "seed": "42/T12",
+      "synthetic_electors": 436,
+      "turnout": 0.3394495412844037,
+      "shares": {
+        "6": 0.4861111111111111,
+        "7": 0.5138888888888888
+      }
+    },
+    {
+      "contest": "T13",
+      "method": "party-lean rule v1",
+      "seed": "42/T13",
+      "synthetic_electors": 677,
+      "turnout": 0.3175775480059084,
+      "shares": {
+        "6": 0.1179245283018868,
+        "7": 0.46226415094339623,
+        "8": 0.419811320754717
+      }
+    },
+    {
+      "contest": "T14",
+      "method": "party-lean rule v1",
+      "seed": "42/T14",
+      "synthetic_electors": 496,
+      "turnout": 0.31451612903225806,
+      "shares": {
+        "6": 0.3618421052631579,
+        "7": 0.14473684210526316,
+        "8": 0.40131578947368424,
+        "9": 0.09210526315789473
+      }
+    },
+    {
+      "contest": "T15",
+      "method": "party-lean rule v1",
+      "seed": "42/T15",
+      "synthetic_electors": 517,
+      "turnout": 0.3365570599613153,
+      "shares": {
+        "6": 0.4556213017751479,
+        "7": 0.11242603550295859,
+        "8": 0.4319526627218935
+      }
+    },
+    {
+      "contest": "T16",
+      "method": "party-lean rule v1",
+      "seed": "42/T16",
+      "synthetic_electors": 812,
+      "turnout": 0.3054187192118227,
+      "shares": {
+        "6": 0.4979253112033195,
+        "7": 0.11618257261410789,
+        "8": 0.38589211618257263
+      }
+    },
+    {
+      "contest": "T17",
+      "method": "party-lean rule v1",
+      "seed": "42/T17",
+      "synthetic_electors": 824,
+      "turnout": 0.2936893203883495,
+      "shares": {
+        "6": 0.08860759493670886,
+        "7": 0.4008438818565401,
+        "8": 0.4345991561181435,
+        "9": 0.0759493670886076
+      }
+    }
+  ]
+}

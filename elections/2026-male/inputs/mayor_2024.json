@@ -1,0 +1,8 @@
+{
+  "source": "https://www.gazette.gov.mv/iulaan/272825",
+  "election_date": "2024-01-13",
+  "eligible": 54680,
+  "voters": 17410,
+  "invalid": 402,
+  "valid_votes": {"MDP": 7621, "PNC": 5031, "IND": 2013, "Democrats": 2343}
+}

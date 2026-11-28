@@ -26,6 +26,10 @@ percentage as a directional hypothesis, not a prediction.** The only path to
 
 ---
 
+## 2026 local council election
+
+Compare a historical baseline and the synthetic electorate with the Elections Commission’s declared results for the Malé mayoral race and 17 council constituencies. The [election backtest](elections/2026-male/README.md) includes the official ballot, aggregate results, saved runs and reproduction commands.
+
 ## Ask Malé transit prototype
 
 Install the Python requirements and run the following from the project root.
