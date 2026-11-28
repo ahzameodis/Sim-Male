@@ -26,6 +26,27 @@ percentage as a directional hypothesis, not a prediction.** The only path to
 
 ---
 
+## Ask Malé transit prototype
+
+Install the Python requirements and run the following from the project root.
+
+```sh
+python -m pip install -r requirements.txt
+python -m sim_male.ask
+```
+
+Open `data/ask-male.html` in a browser. The complete atlas runs offline in one HTML file. It generates 10,000 synthetic profiles with population seed 42 and draws 350 residents without replacement with sample seed 42. Select an area or a dot, explore baseline responses, switch to **Same fare** or **Compare**, and inspect the paired records. The Method section includes a CSV export and an anonymous pilot questionnaire.
+
+The default **Illustrative rules v1** demo uses seeded, scripted preferences and reasons. Its fare response is an explicit rule. Sampled area differences can occur by chance. The package also supports actual language-model responses. The following command submits two billable Anthropic batches with the same respondents; configure `ANTHROPIC_API_KEY` first.
+
+```sh
+python -m sim_male.ask --live-model claude-haiku-4-5 --sample 50 --output data/ask-male-live.html
+```
+
+An incomplete batch cannot produce a paired comparison. Each completed report records the method, sample seed and UTC build time. Use `--population data/agents.jsonl` to reuse an existing population and its weights. Legacy points outside their district are relocated in memory before display. The source population file is preserved.
+
+Hulhumalé phases use HDC's HM1/HM2 completed residential parcels. The atlas bundles the HM2 parcel footprint and simplified HDX island outlines. The model still assigns six electorate districts. The phase split describes placement within Hulhumalé.
+
 ## Setup
 
 ```powershell
