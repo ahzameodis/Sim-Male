@@ -26,6 +26,31 @@ percentage as a directional hypothesis, not a prediction.** The only path to
 
 ---
 
+## 2026 local council election
+
+Compare a historical baseline and the synthetic electorate with the Elections Commission’s declared results for the Malé mayoral race and 17 council constituencies. The [election backtest](elections/2026-male/README.md) includes the official ballot, aggregate results, saved runs and reproduction commands.
+
+## Ask Malé transit prototype
+
+Install the Python requirements and run the following from the project root.
+
+```sh
+python -m pip install -r requirements.txt
+python -m sim_male.ask
+```
+
+Open `data/ask-male.html` in a browser. The complete atlas runs offline in one HTML file. It generates 10,000 synthetic profiles with population seed 42 and draws 350 residents without replacement with sample seed 42. Select an area or a dot, explore baseline responses, switch to **Same fare** or **Compare**, and inspect the paired records. The Method section includes a CSV export and an anonymous pilot questionnaire.
+
+The default **Illustrative rules v1** demo uses seeded, scripted preferences and reasons. Its fare response is an explicit rule. Sampled area differences can occur by chance. The package also supports actual language-model responses. The following command submits two billable Anthropic batches with the same respondents; configure `ANTHROPIC_API_KEY` first.
+
+```sh
+python -m sim_male.ask --live-model claude-haiku-4-5 --sample 50 --output data/ask-male-live.html
+```
+
+An incomplete batch cannot produce a paired comparison. Each completed report records the method, sample seed and UTC build time. Use `--population data/agents.jsonl` to reuse an existing population and its weights. Legacy points outside their district are relocated in memory before display. The source population file is preserved.
+
+Hulhumalé phases use HDC's HM1/HM2 completed residential parcels. The atlas bundles the HM2 parcel footprint and simplified HDX island outlines. The model still assigns six electorate districts. The phase split describes placement within Hulhumalé.
+
 ## Setup
 
 ```powershell
@@ -98,6 +123,40 @@ per line in `data/agents.jsonl`, each with `lat`/`lon` inside its district.
 | Religiosity | ⚠️ Modelled estimate (not measured by the census) |
 
 Verify after seeding — the printed marginals should match the table above.
+
+### Where the map places each voter
+
+The generator uses the six district labels in the electorate model. Every final, rounded coordinate must fall inside its assigned placement polygon. Sampling is proportional to mapped area within each district. It does not estimate how many people live in individual buildings.
+
+| District | Placement geometry |
+|---|---|
+| Henveiru, Galolhu, Machchangolhi, Maafannu | Maldives Bureau of Statistics ward polygons intersected with the Malé island outline. The Stats Map spells Henveiru “Henveyru”. |
+| Hulhumalé | HDC parcels with `landuse=Residential` and `status=Completed` in phases HM1 and HM2, intersected with the Hulhumalé island outline. Parcel status is a proxy for housing availability. |
+| Villimalé | The mapped island of Villingili in Malé City. This simulation treats it as one district. |
+
+**Ward population benchmarks.** On the Council statistics page, select Population → 2022 → January 2022. Its six resident totals match the March 2023 provisional Census 2022 Table P3. The July 2023 revision gives an updated nationality breakdown and separates Hulhumalé phases. Both editions count all ages.
+
+| Area | Council resident count | Revised census, Maldivian residents of all ages |
+|---|---:|---:|
+| Henveiru | 34,081 | 24,784 |
+| Galolhu | 28,600 | 21,210 |
+| Machchangolhi | 27,824 | 20,839 |
+| Maafannu | 46,928 | 33,781 |
+| Villimalé | 6,754 | 5,971 |
+| Hulhumalé | 65,724 | 53,129 |
+
+The six Council rows sum to 209,911. The separate citywide headline of 252,768 has no stated reference year. The revised census counts 26,511 Maldivian residents in Phase 1 and 26,618 in Phase 2. Use these figures to check residential coverage. The model uses registered-voter weights; recalibration for resident Maldivian adults requires an age-18+ breakdown by place of residence.
+
+**Reproducibility.** The bundled `sim_male/placement.geojson` contains the six derived placement masks. The same seed retains the earlier sequence of voter profiles. Regenerate the population and export the map using the quick-start commands above. Existing population files require regeneration or explicit relocation before exporting to obtain the revised coordinates.
+
+**Sources and boundary refresh.**
+
+- [Malé City Council statistics](https://malecity.gov.mv/en/statistics), [provisional Table P3](https://census.gov.mv/2022/wp-content/uploads/2023/03/Table-P3.pdf), and [revised Table P3](https://statisticsmaldives.gov.mv/mbs/wp-content/uploads/2023/07/P3.pdf).
+- [Maldives Bureau of Statistics Stats Map](https://app.statisticsmaldives.gov.mv/gismaps/statsmap/) and its [ward layer](https://app.statisticsmaldives.gov.mv/gismaps/statsmap/layers/WardMaaleandFoahmulah_22.js).
+- [HDC GIS portal](https://gis.hdc.mv/) and its [Hulhumalé shapefile](https://gis.hdc.mv/assets/downloads/Hulhumale_Shapefile.zip).
+- [Government of Maldives administrative boundaries, OCHA / HDX, COD-AB v02](https://data.humdata.org/dataset/cod-ab-mdv), CC BY-IGO. Use the GeoJSON ZIP. Map outlines reflect the respective source editions.
+
+To rebuild the masks after downloading these inputs, install the additional build dependencies with `python -m pip install pyshp pyproj`, then run `python tools/build_boundaries.py WardMaaleandFoahmulah_22.js Hulhumale_Shapefile.zip mdv_admin_boundaries.geojson.zip`.
 
 ### 2. Personas (`persona.py`)
 The system prompt is two blocks: a big shared `CITY_CONTEXT` (marked for prompt
@@ -181,7 +240,7 @@ sim-male/
 ├─ sim_male/
 │  ├─ config.py           # models, paths, sample sizes, pricing
 │  ├─ demographics.py     # ⚠️ the distributions to replace with real census data
-│  ├─ map_data.py         # district centroids → lat/lon scatter
+│  ├─ map_data.py         # sample coordinates inside mapped polygons
 │  ├─ persona.py          # CITY_CONTEXT + per-agent system prompt (cached)
 │  ├─ seed.py             # generate population → agents.jsonl
 │  ├─ agent.py            # single agent + focus-group framework
